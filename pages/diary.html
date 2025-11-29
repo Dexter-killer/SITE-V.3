@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Дневник - Говорунов Данила | Лесная тема</title>
+    
+    <!-- Предзагрузка критических ресурсов -->
+    <link rel="preload" href="../style/forest-theme.css" as="style">
+    <link rel="preload" href="../js/forest-engine.js" as="script">
+    
+    <!-- Оптимизация загрузки -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" media="print" onload="this.media='all'">
+    
+    <!-- Мета-теги -->
+    <meta name="description" content="Учебный дневник Говорунова Данилы Дмитриевича - хронология обучения веб-разработке с лесной тематикой">
+    <meta name="keywords" content="учебный дневник, веб-разработка, прогресс обучения, лесная тема">
+    
+    <style>
+        :root {
+            --forest-deep: #2E5A3B;
+            --forest-medium: #4B8B3B;
+            --forest-light: #6B9B4B;
+            --forest-moss: #8B9F6D;
+            --forest-brown: #5B3A29;
+            --forest-bark: #7A5C47;
+            --forest-cream: #F5E8D0;
+        }
+        
+        body.forest-theme {
+            background: linear-gradient(135deg, #1a3a2a 0%, #2d4a3d 50%, #3d5a4d 100%);
+            color: var(--forest-cream);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+        
+        .forest-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .leaves-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .leaf {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--forest-light);
+            border-radius: 0 50% 50% 50%;
+            opacity: 0.6;
+            animation: fall 15s infinite;
+        }
+        
+        .leaf:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .leaf:nth-child(2) { left: 20%; animation-delay: 2s; }
+        .leaf:nth-child(3) { left: 30%; animation-delay: 4s; }
+        .leaf:nth-child(4) { left: 40%; animation-delay: 6s; }
+        .leaf:nth-child(5) { left: 50%; animation-delay: 8s; }
+        .leaf:nth-child(6) { left: 60%; animation-delay: 10s; }
+        .leaf:nth-child(7) { left: 70%; animation-delay: 12s; }
+        .leaf:nth-child(8) { left: 80%; animation-delay: 14s; }
+        
+        @keyframes fall {
+            0% { top: -10%; transform: rotate(0deg); }
+            100% { top: 110%; transform: rotate(360deg); }
+        }
+        
+        .fireflies-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .firefly {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #FFE55C;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #FFE55C;
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        .glass-container {
+            background: rgba(46, 90, 59, 0.1);
+            backdrop-filter: blur(10px);
+            min-height: 100vh;
+        }
+        
+        .forest-glass {
+            background: rgba(75, 139, 59, 0.15);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(245, 232, 208, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .text-glow {
+            color: var(--forest-cream);
+            text-shadow: 0 0 20px rgba(139, 159, 109, 0.6);
+        }
+        
+        .forest-gradient {
+            background: linear-gradient(135deg, var(--forest-light), var(--forest-moss));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .forest-text {
+            color: var(--forest-cream);
+        }
+        
+        .forest-navbar {
+            background: rgba(46, 90, 59, 0.3);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(245, 232, 208, 0.2);
+        }
+        
+        .forest-link {
+            color: var(--forest-cream) !important;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .forest-link:hover {
+            color: var(--forest-moss) !important;
+            transform: translateY(-2px);
+        }
+        
+        .forest-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--forest-light);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .forest-link:hover::after {
+            width: 80%;
+        }
+        
+        .forest-icon {
+            color: var(--forest-light);
+            filter: drop-shadow(0 0 8px rgba(107, 155, 75, 0.5));
+        }
+        
+        .forest-progress,
+        .forest-progress-large,
+        .forest-progress-small {
+            background: rgba(46, 90, 59, 0.3);
+            height: 12px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .forest-progress-large {
+            height: 20px;
+        }
+        
+        .forest-progress-small {
+            height: 8px;
+        }
+        
+        .forest-progress-bar,
+        .forest-progress-bar-large {
+            background: linear-gradient(90deg, var(--forest-medium), var(--forest-light), var(--forest-moss));
+            height: 100%;
+            border-radius: 20px;
+            transition: width 1.5s ease;
+            box-shadow: 0 0 15px rgba(107, 155, 75, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .forest-progress-bar::after,
+        .forest-progress-bar-large::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shine 2s infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .timeline-item {
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 10px;
+            border-left: 3px solid var(--forest-light);
+        }
+        
+        .timeline-item:hover {
+            transform: translateX(10px);
+            border-left-color: var(--forest-moss);
+        }
+        
+        .timeline-badge {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .timeline-badge.completed {
+            background: linear-gradient(135deg, var(--forest-medium), var(--forest-deep));
+        }
+        
+        .timeline-badge.in-progress {
+            background: linear-gradient(135deg, var(--forest-moss), var(--forest-light));
+            animation: pulse 2s infinite;
+        }
+        
+        .timeline-badge.planned {
+            background: linear-gradient(135deg, var(--forest-brown), var(--forest-bark));
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .forest-badge {
+            background: linear-gradient(135deg, var(--forest-medium), var(--forest-deep));
+            color: var(--forest-cream);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            box-shadow: 0 2px 8px rgba(75, 139, 59, 0.4);
+        }
+        
+        .woodland-badge {
+            background: linear-gradient(135deg, var(--forest-brown), var(--forest-bark));
+            color: var(--forest-cream);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            box-shadow: 0 2px 8px rgba(91, 58, 41, 0.4);
+        }
+        
+        .forest-btn {
+            background: linear-gradient(135deg, var(--forest-medium), var(--forest-deep));
+            border: none;
+            color: var(--forest-cream);
+            padding: 12px 30px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(75, 139, 59, 0.4);
+        }
+        
+        .forest-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(75, 139, 59, 0.6);
+            background: linear-gradient(135deg, var(--forest-light), var(--forest-medium));
+            color: var(--forest-cream);
+        }
+        
+        .forest-outline-btn {
+            background: transparent;
+            border: 2px solid var(--forest-light);
+            color: var(--forest-cream);
+            padding: 10px 28px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .forest-outline-btn:hover {
+            background: var(--forest-light);
+            color: var(--forest-deep);
+            transform: translateY(-3px);
+        }
+        
+        .forest-input,
+        .forest-select,
+        .forest-textarea {
+            background: rgba(46, 90, 59, 0.2);
+            border: 2px solid rgba(107, 155, 75, 0.3);
+            color: var(--forest-cream);
+            padding: 12px 16px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .forest-input:focus,
+        .forest-select:focus,
+        .forest-textarea:focus {
+            background: rgba(75, 139, 59, 0.25);
+            border-color: var(--forest-light);
+            box-shadow: 0 0 20px rgba(107, 155, 75, 0.4);
+            outline: none;
+            color: var(--forest-cream);
+        }
+        
+        .forest-input::placeholder,
+        .forest-textarea::placeholder {
+            color: rgba(245, 232, 208, 0.5);
+        }
+        
+        .forest-check {
+            border-color: var(--forest-light);
+        }
+        
+        .forest-check:checked {
+            background-color: var(--forest-light);
+            border-color: var(--forest-light);
+        }
+        
+        .forest-range {
+            accent-color: var(--forest-light);
+        }
+        
+        .stats-icon {
+            font-size: 2.5rem;
+            color: var(--forest-light);
+            filter: drop-shadow(0 0 15px rgba(107, 155, 75, 0.6));
+        }
+        
+        .goal-item,
+        .achievement-item,
+        .stat-item {
+            transition: all 0.3s ease;
+        }
+        
+        .goal-item:hover,
+        .achievement-item:hover,
+        .stat-item:hover {
+            background: rgba(107, 155, 75, 0.1) !important;
+            transform: scale(1.02);
+        }
+        
+        .modal-content {
+            background: rgba(46, 90, 59, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(245, 232, 208, 0.2);
+        }
+        
+        .forest-border {
+            border-color: rgba(245, 232, 208, 0.2) !important;
+        }
+        
+        .btn-close-white {
+            filter: brightness(0) invert(1);
+        }
+        
+        .forest-footer {
+            background: rgba(46, 90, 59, 0.3);
+            backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(245, 232, 208, 0.2);
+            margin-top: 3rem;
+        }
+        
+        .forest-cursor {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(107, 155, 75, 0.4), transparent);
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.2s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="forest-theme">
+    <!-- Анимированный лесной фон -->
+    <div class="forest-background">
+        <div class="leaves-container">
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+        </div>
+        <div class="fireflies-container" id="firefliesContainer"></div>
+    </div>
+
+    <!-- Свечение за курсором -->
+    <div id="cursorGlow" class="forest-cursor"></div>
+
+    <!-- Основной контейнер -->
+    <div class="glass-container">
+        <header class="py-3">
+            <div class="container-fluid">
+                <div class="d-flex align-items-center justify-content-center">
+                    <div class="me-3">
+                        <i class="bi bi-tree-fill text-glow" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <h1 class="h3 mb-0 text-glow">Говорунов Данила Дмитриевич</h1>
+                </div>
+            </div>
+        </header>
+
+        <!-- Навигация -->
+        <nav class="navbar navbar-expand-lg forest-navbar" aria-label="Основная навигация">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-bold text-glow" href="../index.html">
+                    <i class="bi bi-tree me-2"></i>Portfolio
+                </a>
+                <button class="navbar-toggler" 
+                        type="button" 
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#navbarNav"
+                        aria-label="Переключить навигацию"
+                        style="border-color: var(--forest-cream);">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link forest-link" href="../index.html">
+                                <i class="bi bi-house-door me-1"></i>Главная
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link forest-link" href="projects.html">
+                                <i class="bi bi-folder me-1"></i>Проекты
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active forest-link" href="diary.html" aria-current="page">
+                                <i class="bi bi-journal-text me-1"></i>Дневник
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link forest-link" href="contacts.html">
+                                <i class="bi bi-telephone me-1"></i>Контакты
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main id="main" class="container-fluid my-5">
+            <!-- Заголовок страницы -->
+            <header class="mb-5 text-center">
+                <h2 class="text-glow mb-3">
+                    <i class="bi bi-journal-code me-2 forest-icon"></i>Мой учебный прогресс
+                </h2>
+                <p class="forest-text lead mb-4">
+                    Хронология моего обучения и развития в веб-разработке
+                </p>
+                
+                <!-- Индикатор прогресса -->
+                <div class="row justify-content-center mb-4">
+                    <div class="col-lg-8">
+                        <div class="card forest-glass">
+                            <div class="card-body">
+                                <h3 class="h5 text-glow mb-3 text-center">
+                                    <i class="bi bi-speedometer2 me-2 forest-icon"></i>Общий прогресс обучения
+                                </h3>
+                                <div class="forest-progress-large mb-3">
+                                    <div class="forest-progress-bar-large" data-width="65"></div>
+                                </div>
+                                <div class="d-flex justify-content-between text-glow small">
+                                    <span>Начало пути</span>
+                                    <span>65% завершено</span>
+                                    <span>Эксперт</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="row g-4">
+                <!-- Timeline Section -->
+                <div class="col-lg-8">
+                    <!-- Хронология обучения -->
+                    <div class="card forest-glass mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title h4 text-glow mb-4">
+                                <i class="bi bi-clock-history me-2 forest-icon"></i>Хронология обучения
+                            </h3>
+                            
+                            <div class="forest-timeline" id="timeline">
+                                <!-- Entry 1 -->
+                                <article class="timeline-item mb-4">
+                                    <div class="timeline-content forest-glass p-4 rounded">
+                                        <div class="d-flex align-items-start">
+                                            <div class="timeline-badge completed me-3">
+                                                <i class="bi bi-check-circle-fill forest-icon" style="font-size: 1.5rem;"></i>
+                                            </div>
+                                            <div class="timeline-details flex-grow-1">
+                                                <div class="d-flex justify-content-between align-items-start mb-2 flex-wrap">
+                                                    <h4 class="text-glow mb-1">Верстка макета сайта</h4>
+                                                    <span class="badge forest-badge mb-1">Завершено</span>
+                                                </div>
+                                                <p class="forest-text small mb-2">
+                                                    <i class="bi bi-calendar3 me-1 forest-icon"></i>15 октября 2025
+                                                </p>
+                                                <p class="forest-text mb-3">
+                                                    Освоил основы HTML/CSS, создал первый адаптивный макет сайта. 
+                                                    Изучил семантические теги, работу с Flexbox и CSS Grid.
+                                                </p>
+                                                <div class="d-flex flex-wrap gap-2">
+                                                    <span class="badge woodland-badge">HTML5</span>
+                                                    <span class="badge woodland-badge">CSS3</span>
+                                                    <span class="badge woodland-badge">Flexbox</span>
+                                                    <span class="badge woodland-badge">Grid</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <!-- Entry 2 -->
+                                <article class="timeline-item mb-4">
+                                    <div class="timeline-content forest-glass p-4 rounded">
+                                        <div class="d-flex align-items-start">
+                                            <div class="timeline-badge completed me-3">
+                                                <i class="bi bi-check-circle-fill forest-icon" style="font-size: 1.5rem;"></i>
+                                            </div>
+                                            <div class="timeline-details flex-grow-1">
+                                                <div class="d-flex justify-content-between align-items-start mb-2 flex-wrap">
+                                                    <h4 class="text-glow mb-1">JavaScript основы</h4>
+                                                    <span class="badge forest-badge mb-1">Завершено</span>
+                                                </div>
+                                                <p class="forest-text small mb-2">
+                                                    <i class="bi bi-calendar3 me-1 forest-icon"></i>1 ноября 2025
+                                                </p>
+                                                <p class="forest-text mb-3">
+                                                    Изучил основы JavaScript: переменные, функции, DOM-манипуляции. 
+                                                    Создал интерактивные элементы на сайте.
+                                                </p>
+                                                <div class="d-flex flex-wrap gap-2">
+                                                    <span class="badge woodland-badge">JavaScript</span>
+                                                    <span class="badge woodland-badge">DOM API</span>
+                                                    <span class="badge woodland-badge">Events</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <!-- Entry 3 -->
+                                <article class="timeline-item mb-4">
+                                    <div class="timeline-content forest-glass p-4 rounded">
+                                        <div class="d-flex align-items-start">
+                                            <div class="timeline-badge in-progress me-3">
+                                                <i class="bi bi-arrow-clockwise forest-icon" style="font-size: 1.5rem;"></i>
+                                            </div>
+                                            <div class="timeline-details flex-grow-1">
+                                                <div class="d-flex justify-content-between align-items-start mb-2 flex-wrap">
+                                                    <h4 class="text-glow mb-1">React разработка</h4>
+                                                    <span class="badge forest-badge mb-1">В процессе</span>
+                                                </div>
+                                                <p class="forest-text small mb-2">
+                                                    <i class="bi bi-calendar3 me-1 forest-icon"></i>15 ноября 2025
+                                                </p>
+                                                <p class="forest-text mb-3">
+                                                    Изучаю React.js, компонентный подход, состояние и пропсы. 
+                                                    Разрабатываю SPA приложение для управления задачами.
+                                                </p>
+                                                <div class="d-flex flex-wrap gap-2">
+                                                    <span class="badge woodland-badge">React</span>
+                                                    <span class="badge woodland-badge">Components</span>
+                                                    <span class="badge woodland-badge">Hooks</span>
+                                                    <span class="badge woodland-badge">SPA</span>
+                                                </div>
+                                                <div class="forest-progress mt-3">
+                                                    <div class="forest-progress-bar" data-width="40"></div>
+                                                </div>
+                                                <div class="d-flex justify-content-between forest-text small mt-1">
+                                                    <span>40% завершено</span>
+                                                    <span>Осталось 3 недели</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <!-- Entry 4 -->
+                                <article class="timeline-item mb-4">
+                                    <div class="timeline-content forest-glass p-4 rounded">
+                                        <div class="d-flex align-items-start">
+                                            <div class="timeline-badge planned me-3">
+                                                <i class="bi bi-clock forest-icon" style="font-size: 1.5rem;"></i>
+                                            </div>
+                                            <div class="timeline-details flex-grow-1">
+                                                <div class="d-flex justify-content-between align-items-start mb-2 flex-wrap">
+                                                    <h4 class="text-glow mb-1">Node.js и Backend</h4>
+                                                    <span class="badge woodland-badge mb-1">Запланировано</span>
+                                                </div>
+                                                <p class="forest-text small mb-2">
+                                                    <i class="bi bi-calendar3 me-1 forest-icon"></i>Декабрь 2025
+                                                </p>
+                                                <p class="forest-text mb-3">
+                                                    Планирую изучить серверную разработку на Node.js, Express, 
+                                                    работу с базами данных и REST API.
+                                                </p>
+                                                <div class="d-flex flex-wrap gap-2">
+                                                    <span class="badge woodland-badge">Node.js</span>
+                                                    <span class="badge woodland-badge">Express</span>
+                                                    <span class="badge woodland-badge">MongoDB</span>
+                                                    <span class="badge woodland-badge">REST API</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <button class="btn forest-btn" data-bs-toggle="modal" data-bs-target="#addEntryModal">
+                                    <i class="bi bi-plus-circle me-2"></i>Добавить новую запись
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Статистика обучения -->
+                    <div class="card forest-glass">
+                        <div class="card-body">
+                            <h4 class="text-glow mb-4">
+                                <i class="bi bi-graph-up me-2 forest-icon"></i>Статистика обучения
+                            </h4>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="stat-item forest-glass p-3 rounded text-center h-100">
+                                        <i class="bi bi-book forest-icon stats-icon"></i>
+                                        <h3 class="text-glow mt-2 mb-1 counter" data-target="15">0</h3>
+                                        <p class="forest-text mb-0 small">Пройденных уроков</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="stat-item forest-glass p-3 rounded text-center h-100">
+                                        <i class="bi bi-clock forest-icon stats-icon"></i>
+                                        <h3 class="text-glow mt-2 mb-1 counter" data-target="50">0</h3>
+                                        <p class="forest-text mb-0 small">Часов практики</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="stat-item forest-glass p-3 rounded text-center h-100">
+                                        <i class="bi bi-check-circle forest-icon stats-icon"></i>
+                                        <h3 class="text-glow mt-2 mb-1 counter" data-target="8">0</h3>
+                                        <p class="forest-text mb-0 small">Завершенных проектов</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="stat-item forest-glass p-3 rounded text-center h-100">
+                                        <i class="bi bi-code-slash forest-icon stats-icon"></i>
+                                        <h3 class="text-glow mt-2 mb-1 counter" data-target="12">0</h3>
+                                        <p class="forest-text mb-0 small">Изученных технологий</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <!-- Текущие цели -->
+                    <div class="card forest-glass mb-4">
+                        <div class="card-body">
+                            <h4 class="text-glow mb-3">
+                                <i class="bi bi-bullseye me-2 forest-icon"></i>Текущие цели
+                            </h4>
+                            <div class="goals-list">
+                                <div class="goal-item mb-3 p-3 rounded forest-glass">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="bi bi-check2-circle forest-icon me-2"></i>
+                                        <h5 class="text-glow mb-0 flex-grow-1">Изучить React Hooks</h5>
+                                    </div>
+                                    <div class="forest-progress-small">
+                                        <div class="forest-progress-bar" data-width="60"></div>
+                                    </div>
+                                    <div class="d-flex justify-content-between forest-text small mt-1">
+                                        <span>60%</span>
+                                        <span>2 недели</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="goal-item mb-3 p-3 rounded forest-glass">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="bi bi-check2-circle forest-icon me-2"></i>
+                                        <h5 class="text-glow mb-0 flex-grow-1">Создать SPA приложение</h5>
+                                    </div>
+                                    <div class="forest-progress-small">
+                                        <div class="forest-progress-bar" data-width="30"></div>
+                                    </div>
+                                    <div class="d-flex justify-content-between forest-text small mt-1">
+                                        <span>30%</span>
+                                        <span>1 месяц</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="goal-item p-3 rounded forest-glass">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="bi bi-check2-circle forest-icon me-2"></i>
+                                        <h5 class="text-glow mb-0 flex-grow-1">Освоить TypeScript</h5>
+                                    </div>
+                                    <div class="forest-progress-small">
+                                        <div class="forest-progress-bar" data-width="10"></div>
+                                    </div>
+                                    <div class="d-flex justify-content-between forest-text small mt-1">
+                                        <span>10%</span>
+                                        <span>2 месяца</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Последние достижения -->
+                    <div class="card forest-glass mb-4">
+                        <div class="card-body">
+                            <h4 class="text-glow mb-3">
+                                <i class="bi bi-trophy me-2 forest-icon"></i>Последние достижения
+                            </h4>
+                            <div class="achievements-list">
+                                <div class="achievement-item mb-3 p-3 rounded forest-glass">
+                                    <div class="d-flex align-items-start">
+                                        <i class="bi bi-award-fill forest-icon me-2 mt-1"></i>
+                                        <div>
+                                            <h6 class="text-glow mb-1">Первое React приложение</h6>
+                                            <p class="forest-text small mb-0">Создал todo-приложение с использованием хуков</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="achievement-item mb-3 p-3 rounded forest-glass">
+                                    <div class="d-flex align-items-start">
+                                        <i class="bi bi-award-fill forest-icon me-2 mt-1"></i>
+                                        <div>
+                                            <h6 class="text-glow mb-1">Адаптивная верстка</h6>
+                                            <p class="forest-text small mb-0">Освоил создание responsive дизайнов</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="achievement-item p-3 rounded forest-glass">
+                                    <div class="d-flex align-items-start">
+                                        <i class="bi bi-award-fill forest-icon me-2 mt-1"></i>
+                                        <div>
+                                            <h6 class="text-glow mb-1">Git мастер</h6>
+                                            <p class="forest-text small mb-0">Научился эффективно использовать Git</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Быстрая навигация -->
+                    <div class="card forest-glass">
+                        <div class="card-body">
+                            <h4 class="text-glow mb-3">
+                                <i class="bi bi-lightning me-2 forest-icon"></i>Быстрые действия
+                            </h4>
+                            <div class="d-grid gap-2">
+                                <button class="btn forest-outline-btn" onclick="scrollToTimeline()">
+                                    <i class="bi bi-arrow-down me-2"></i>К хронологии
+                                </button>
+                                <button class="btn forest-outline-btn" data-bs-toggle="modal" data-bs-target="#addEntryModal">
+                                    <i class="bi bi-plus me-2"></i>Новая запись
+                                </button>
+                                <a href="projects.html" class="btn forest-outline-btn">
+                                    <i class="bi bi-folder me-2"></i>Мои проекты
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="forest-footer text-center py-4">
+            <div class="container-fluid">
+                <p class="mb-2 text-glow">© 2025 Говорунов Данила Дмитриевич | ЭФБО-12-24</p>
+                <p class="small mb-0 forest-text">
+                    <i class="bi bi-tree-fill me-1" style="color: var(--forest-light);"></i>
+                    Сделано с любовью к природе и коду
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Модальное окно добавления записи -->
+    <div class="modal fade" id="addEntryModal" tabindex="-1" aria-labelledby="addEntryModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header forest-border">
+                    <h5 class="modal-title text-glow" id="addEntryModalLabel">
+                        <i class="bi bi-plus-circle me-2 forest-icon"></i>Добавить новую запись
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="diaryEntryForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="entryTitle" class="form-label text-glow">
+                                        <i class="bi bi-card-heading me-2 forest-icon"></i>Заголовок
+                                    </label>
+                                    <input type="text" class="form-control forest-input" id="entryTitle" 
+                                           placeholder="Название этапа обучения" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="entryDate" class="form-label text-glow">
+                                        <i class="bi bi-calendar me-2 forest-icon"></i>Дата
+                                    </label>
+                                    <input type="date" class="form-control forest-input" id="entryDate" required>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="entryDescription" class="form-label text-glow">
+                                        <i class="bi bi-text-paragraph me-2 forest-icon"></i>Описание
+                                    </label>
+                                    <textarea class="form-control forest-textarea" id="entryDescription" 
+                                              rows="4" placeholder="Опишите ваш прогресс..." required></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label text-glow">
+                                        <i class="bi bi-tags me-2 forest-icon"></i>Технологии
+                                    </label>
+                                    <div class="d-flex flex-wrap gap-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input forest-check" type="checkbox" id="techHTML" value="HTML/CSS">
+                                            <label class="form-check-label forest-text" for="techHTML">HTML/CSS</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input forest-check" type="checkbox" id="techJS" value="JavaScript">
+                                            <label class="form-check-label forest-text" for="techJS">JavaScript</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input forest-check" type="checkbox" id="techReact" value="React">
+                                            <label class="form-check-label forest-text" for="techReact">React</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input forest-check" type="checkbox" id="techNode" value="Node.js">
+                                            <label class="form-check-label forest-text" for="techNode">Node.js</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input forest-check" type="checkbox" id="techBootstrap" value="Bootstrap">
+                                            <label class="form-check-label forest-text" for="techBootstrap">Bootstrap</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="entryStatus" class="form-label text-glow">
+                                        <i class="bi bi-clock me-2 forest-icon"></i>Статус
+                                    </label>
+                                    <select class="form-select forest-select" id="entryStatus">
+                                        <option value="planned">Запланировано</option>
+                                        <option value="in-progress">В процессе</option>
+                                        <option value="completed">Завершено</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12" id="progressSection" style="display: none;">
+                                <div class="form-group">
+                                    <label for="entryProgress" class="form-label text-glow">
+                                        <i class="bi bi-graph-up me-2 forest-icon"></i>Прогресс
+                                    </label>
+                                    <input type="range" class="form-range forest-range" id="entryProgress" min="0" max="100" value="0">
+                                    <div class="d-flex justify-content-between forest-text small mt-2">
+                                        <span>0%</span>
+                                        <span id="progressValue">0%</span>
+                                        <span>100%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer forest-border">
+                    <button type="button" class="btn forest-outline-btn" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle me-2"></i>Отмена
+                    </button>
+                    <button type="button" class="btn forest-btn" id="saveEntryBtn">
+                        <i class="bi bi-check-circle me-2"></i>Сохранить запись
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Скрипты -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Создание светлячков
+            const firefliesContainer = document.getElementById('firefliesContainer');
+            for (let i = 0; i < 20; i++) {
+                const firefly = document.createElement('div');
+                firefly.className = 'firefly';
+                firefly.style.left = Math.random() * 100 + '%';
+                firefly.style.top = Math.random() * 100 + '%';
+                firefly.style.animationDelay = Math.random() * 2 + 's';
+                firefliesContainer.appendChild(firefly);
+            }
+            
+            // Курсор
+            const cursor = document.getElementById('cursorGlow');
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX - 20 + 'px';
+                cursor.style.top = e.clientY - 20 + 'px';
+            });
+            
+            // Инициализация счетчиков
+            initCounters();
+            
+            // Инициализация прогресс-баров
+            initProgressBars();
+            
+            // Инициализация модального окна
+            initAddEntryModal();
+        });
+        
+        function initCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.innerText = Math.ceil(current);
+                        setTimeout(updateCounter, 20);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            updateCounter();
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                });
+                
+                observer.observe(counter);
+            });
+        }
+        
+        function initProgressBars() {
+            const progressBars = document.querySelectorAll('.forest-progress-bar, .forest-progress-bar-large');
+            progressBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                bar.style.width = '0%';
+                
+                setTimeout(() => {
+                    bar.style.width = width + '%';
+                }, 500);
+            });
+        }
+        
+        function initAddEntryModal() {
+            const modal = document.getElementById('addEntryModal');
+            const statusSelect = document.getElementById('entryStatus');
+            const progressSection = document.getElementById('progressSection');
+            const progressRange = document.getElementById('entryProgress');
+            const progressValue = document.getElementById('progressValue');
+            
+            if (!modal) return;
+            
+            // Обработчик изменения статуса
+            if (statusSelect && progressSection) {
+                statusSelect.addEventListener('change', function() {
+                    if (this.value === 'in-progress') {
+                        progressSection.style.display = 'block';
+                        progressSection.style.animation = 'fadeInUp 0.4s ease';
+                    } else {
+                        progressSection.style.animation = 'fadeOut 0.3s ease';
+                        setTimeout(() => {
+                            progressSection.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            }
+            
+            // Обработчик для range input
+            if (progressRange && progressValue) {
+                progressRange.addEventListener('input', function() {
+                    progressValue.textContent = this.value + '%';
+                });
+            }
+            
+            // Обработчик открытия модального окна
+            modal.addEventListener('show.bs.modal', function() {
+                const dateInput = document.getElementById('entryDate');
+                if (dateInput) {
+                    const today = new Date().toISOString().split('T')[0];
+                    dateInput.value = today;
+                }
+                
+                if (progressSection) {
+                    progressSection.style.display = 'none';
+                }
+            });
+            
+            // Обработчик сохранения
+            const saveBtn = document.getElementById('saveEntryBtn');
+            if (saveBtn) {
+                saveBtn.addEventListener('click', function() {
+                    // Здесь можно добавить логику сохранения
+                    const modalInstance = bootstrap.Modal.getInstance(modal);
+                    modalInstance.hide();
+                    
+                    // Показываем уведомление
+                    alert('Запись успешно добавлена! 🌲');
+                });
+            }
+        }
+        
+        function scrollToTimeline() {
+            const timeline = document.getElementById('timeline');
+            if (timeline) {
+                timeline.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    </script>
+</body>
+</html>

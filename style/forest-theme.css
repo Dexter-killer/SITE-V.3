@@ -1,0 +1,1025 @@
+/* ============================================
+   ЛЕСНАЯ ТЕМА - ОСНОВНЫЕ ПЕРЕМЕННЫЕ
+   ============================================ */
+
+:root {
+    color-scheme: dark;
+    
+    /* Лесная цветовая палитра */
+    --forest-deep: #1a3a2a;
+    --forest-dark: #2E5A3B;
+    --forest-medium: #4B8B3B;
+    --forest-light: #6B9B4B;
+    --forest-moss: #8B9F6D;
+    --forest-brown: #5B3A29;
+    --forest-bark: #7A5C47;
+    --forest-cream: #F5E8D0;
+    --forest-gold: #D4AF37;
+    --forest-amber: #FFB347;
+    
+    /* Градиенты */
+    --gradient-deep-forest: linear-gradient(135deg, var(--forest-deep) 0%, #2d4a3d 50%, #3d5a4d 100%);
+    --gradient-canopy: linear-gradient(180deg, var(--forest-light) 0%, var(--forest-medium) 100%);
+    --gradient-earth: linear-gradient(135deg, var(--forest-brown), var(--forest-bark));
+    --gradient-spring: linear-gradient(135deg, var(--forest-light), var(--forest-moss));
+    
+    /* Размеры */
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+    
+    /* Эффекты стекла */
+    --glass-bg: rgba(46, 90, 59, 0.15);
+    --glass-border: rgba(245, 232, 208, 0.2);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   ОСНОВНЫЕ СТИЛИ ЛЕСНОЙ ТЕМЫ
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+html, body {
+    height: 100%;
+}
+
+.forest-theme {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    background: var(--gradient-deep-forest);
+    color: var(--forest-cream);
+    position: relative;
+    overflow-x: hidden;
+    min-height: 100vh;
+    padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+}
+
+/* ============================================
+   АНИМИРОВАННЫЙ ЛЕСНОЙ ФОН
+   ============================================ */
+
+.forest-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* Падающие листья */
+.leaves-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.leaf {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: var(--forest-light);
+    border-radius: 0 50% 50% 50%;
+    opacity: 0.6;
+    animation: fall 15s infinite linear;
+    filter: drop-shadow(0 0 3px var(--forest-moss));
+}
+
+.leaf:nth-child(1) { left: 10%; animation-delay: 0s; width: 18px; height: 18px; }
+.leaf:nth-child(2) { left: 20%; animation-delay: 2s; width: 22px; height: 22px; }
+.leaf:nth-child(3) { left: 30%; animation-delay: 4s; width: 16px; height: 16px; }
+.leaf:nth-child(4) { left: 40%; animation-delay: 6s; width: 20px; height: 20px; }
+.leaf:nth-child(5) { left: 50%; animation-delay: 8s; width: 24px; height: 24px; }
+.leaf:nth-child(6) { left: 60%; animation-delay: 10s; width: 19px; height: 19px; }
+.leaf:nth-child(7) { left: 70%; animation-delay: 12s; width: 21px; height: 21px; }
+.leaf:nth-child(8) { left: 80%; animation-delay: 14s; width: 17px; height: 17px; }
+
+@keyframes fall {
+    0% {
+        top: -10%;
+        transform: rotate(0deg) translateX(0);
+    }
+    25% {
+        transform: rotate(90deg) translateX(10px);
+    }
+    50% {
+        transform: rotate(180deg) translateX(-10px);
+    }
+    75% {
+        transform: rotate(270deg) translateX(10px);
+    }
+    100% {
+        top: 110%;
+        transform: rotate(360deg) translateX(0);
+    }
+}
+
+/* Светлячки */
+.fireflies-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.firefly {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--forest-gold);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--forest-gold),
+                0 0 20px var(--forest-amber);
+    animation: firefly-glow 2s infinite alternate,
+               firefly-float 8s infinite ease-in-out;
+}
+
+@keyframes firefly-glow {
+    0%, 100% { 
+        opacity: 0.3;
+        box-shadow: 0 0 10px var(--forest-gold);
+    }
+    50% { 
+        opacity: 1;
+        box-shadow: 0 0 20px var(--forest-gold),
+                    0 0 30px var(--forest-amber);
+    }
+}
+
+@keyframes firefly-float {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    25% {
+        transform: translate(30px, -20px);
+    }
+    50% {
+        transform: translate(-20px, -40px);
+    }
+    75% {
+        transform: translate(40px, -30px);
+    }
+}
+
+/* Туманный эффект */
+.fog-layer {
+    position: absolute;
+    width: 100%;
+    height: 40%;
+    bottom: 0;
+    background: linear-gradient(to top, 
+                rgba(245, 232, 208, 0.1) 0%, 
+                transparent 100%);
+    animation: fog-drift 20s infinite ease-in-out;
+}
+
+@keyframes fog-drift {
+    0%, 100% {
+        transform: translateX(0);
+        opacity: 0.3;
+    }
+    50% {
+        transform: translateX(30px);
+        opacity: 0.5;
+    }
+}
+
+/* ============================================
+   СТЕКЛЯННЫЙ МОРФИЗМ - ЛЕСНОЙ СТИЛЬ
+   ============================================ */
+
+.forest-glass {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--glass-border) !important;
+    box-shadow: var(--glass-shadow),
+                inset 0 1px 0 rgba(245, 232, 208, 0.1);
+    border-radius: 20px !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.forest-glass::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+                transparent,
+                rgba(139, 159, 109, 0.15),
+                transparent);
+    transition: left 0.6s ease;
+}
+
+.forest-glass:hover::before {
+    left: 100%;
+}
+
+.forest-glass:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(75, 139, 59, 0.4),
+                inset 0 1px 0 rgba(245, 232, 208, 0.15);
+    border-color: rgba(107, 155, 75, 0.4) !important;
+}
+
+/* ============================================
+   ТИПОГРАФИЯ И ЦВЕТА
+   ============================================ */
+
+.text-glow {
+    color: var(--forest-cream) !important;
+    text-shadow: 0 0 20px rgba(139, 159, 109, 0.6),
+                 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.forest-gradient {
+    background: var(--gradient-spring);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 15px rgba(107, 155, 75, 0.5));
+}
+
+.forest-text {
+    color: var(--forest-cream) !important;
+}
+
+.woodland-text {
+    background: var(--gradient-earth);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ============================================
+   ИКОНКИ С ПРИРОДНЫМИ ЭФФЕКТАМИ
+   ============================================ */
+
+.forest-icon {
+    color: var(--forest-light);
+    text-shadow: 0 0 15px rgba(107, 155, 75, 0.7);
+    position: relative;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 8px rgba(107, 155, 75, 0.5));
+}
+
+.forest-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(107, 155, 75, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+}
+
+.forest-icon:hover {
+    transform: scale(1.2) rotate(5deg);
+    text-shadow: 0 0 25px rgba(107, 155, 75, 1);
+    filter: drop-shadow(0 0 15px rgba(107, 155, 75, 0.8));
+}
+
+.forest-icon:hover::after {
+    width: 40px;
+    height: 40px;
+}
+
+.project-icon {
+    font-size: 2.5rem !important;
+    animation: leaf-sway 3s ease-in-out infinite;
+}
+
+@keyframes leaf-sway {
+    0%, 100% {
+        transform: rotate(-5deg);
+    }
+    50% {
+        transform: rotate(5deg);
+    }
+}
+
+.stats-icon {
+    font-size: 3rem !important;
+    animation: grow-pulse 4s ease-in-out infinite;
+}
+
+@keyframes grow-pulse {
+    0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 15px rgba(107, 155, 75, 0.6));
+    }
+    50% {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 25px rgba(107, 155, 75, 0.9));
+    }
+}
+
+/* ============================================
+   НАВИГАЦИЯ
+   ============================================ */
+
+.forest-navbar {
+    position: sticky !important;
+    top: 0;
+    z-index: 1000 !important;
+    background: rgba(46, 90, 59, 0.3) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(245, 232, 208, 0.2);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    animation: nav-slide-in 1s ease;
+}
+
+@keyframes nav-slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.forest-link {
+    color: var(--forest-cream) !important;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 0.6rem 1.2rem !important;
+    border-radius: 14px;
+    font-weight: 500;
+    min-height: 44px;
+    overflow: hidden;
+}
+
+.forest-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--forest-light), var(--forest-moss));
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px var(--forest-light);
+    border-radius: 2px;
+}
+
+.forest-link::after {
+    content: '🌿';
+    position: absolute;
+    right: 0.5rem;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+}
+
+.forest-link:hover::before,
+.forest-link.active::before {
+    width: 80%;
+}
+
+.forest-link:hover::after,
+.forest-link.active::after {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.forest-link:hover,
+.forest-link.active {
+    background: rgba(107, 155, 75, 0.15);
+    color: var(--forest-moss) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(107, 155, 75, 0.3);
+}
+
+/* ============================================
+   КНОПКИ В ЛЕСНОМ СТИЛЕ
+   ============================================ */
+
+.forest-btn {
+    background: linear-gradient(135deg, var(--forest-medium), var(--forest-deep));
+    border: none;
+    transition: all 0.3s ease;
+    color: var(--forest-cream) !important;
+    font-weight: 700;
+    padding: 0.7rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(75, 139, 59, 0.4),
+                inset 0 1px 0 rgba(245, 232, 208, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    border: 1px solid rgba(245, 232, 208, 0.15);
+    min-height: 44px;
+    position: relative;
+    overflow: hidden;
+}
+
+.forest-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+                transparent,
+                rgba(245, 232, 208, 0.2),
+                transparent);
+    transition: left 0.5s ease;
+}
+
+.forest-btn:hover::before {
+    left: 100%;
+}
+
+.forest-btn:hover {
+    background: linear-gradient(135deg, var(--forest-light), var(--forest-medium));
+    color: var(--forest-deep) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(107, 155, 75, 0.6),
+                0 0 40px rgba(107, 155, 75, 0.3);
+}
+
+.forest-outline-btn {
+    border: 2px solid var(--forest-light);
+    color: var(--forest-cream);
+    background: rgba(46, 90, 59, 0.3);
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+    font-weight: 600;
+    border-radius: 14px;
+    min-height: 44px;
+    position: relative;
+    overflow: hidden;
+}
+
+.forest-outline-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+                transparent,
+                rgba(107, 155, 75, 0.1),
+                transparent);
+    transition: left 0.5s ease;
+}
+
+.forest-outline-btn:hover::before {
+    left: 100%;
+}
+
+.forest-outline-btn:hover {
+    background: var(--forest-light);
+    color: var(--forest-deep);
+    border-color: var(--forest-moss);
+    transform: translateY(-3px);
+    box-shadow: 0 0 25px rgba(107, 155, 75, 0.5);
+}
+
+/* ============================================
+   ПРОГРЕСС-БАРЫ
+   ============================================ */
+
+.forest-progress,
+.forest-progress-large,
+.forest-progress-small {
+    background: rgba(46, 90, 59, 0.3);
+    backdrop-filter: blur(12px);
+    border-radius: 14px;
+    height: 12px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(107, 155, 75, 0.2);
+    position: relative;
+}
+
+.forest-progress-large {
+    height: 20px;
+}
+
+.forest-progress-small {
+    height: 8px;
+}
+
+.forest-progress-bar,
+.forest-progress-bar-large {
+    height: 100%;
+    background: linear-gradient(90deg, 
+                var(--forest-medium), 
+                var(--forest-light), 
+                var(--forest-moss));
+    border-radius: 14px;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(107, 155, 75, 0.6);
+}
+
+.forest-progress-bar::before,
+.forest-progress-bar-large::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent);
+    animation: progress-shimmer 2s infinite;
+}
+
+@keyframes progress-shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* ============================================
+   КАРТОЧКИ ПРОЕКТОВ
+   ============================================ */
+
+.project-card {
+    cursor: pointer;
+    min-width: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(75, 139, 59, 0.5);
+}
+
+.project-image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px 20px 0 0;
+}
+
+.project-image {
+    transition: transform 0.5s ease;
+    height: 220px;
+    object-fit: cover;
+    filter: brightness(0.9);
+}
+
+.project-card:hover .project-image {
+    transform: scale(1.1) rotate(2deg);
+    filter: brightness(1);
+}
+
+.forest-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg,
+                rgba(75, 139, 59, 0.1) 0%,
+                transparent 50%,
+                rgba(46, 90, 59, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-card:hover .forest-overlay {
+    opacity: 1;
+}
+
+.project-hover-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--forest-cream);
+    text-align: center;
+    opacity: 0;
+    transition: all 0.4s ease;
+    z-index: 10;
+}
+
+.project-card:hover .project-hover-content {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.project-hover-content i {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 20px var(--forest-light));
+}
+
+/* ============================================
+   БЕЙДЖИ
+   ============================================ */
+
+.forest-badge {
+    background: linear-gradient(135deg, var(--forest-medium), var(--forest-deep));
+    color: var(--forest-cream) !important;
+    padding: 0.5rem 0.9rem;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(245, 232, 208, 0.2);
+    box-shadow: 0 2px 8px rgba(75, 139, 59, 0.4);
+}
+
+.woodland-badge {
+    background: linear-gradient(135deg, var(--forest-brown), var(--forest-bark));
+    color: var(--forest-cream) !important;
+    padding: 0.5rem 0.9rem;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 2px 8px rgba(91, 58, 41, 0.4);
+}
+
+.forest-badge:hover,
+.woodland-badge:hover {
+    transform: translateY(-3px) rotate(3deg);
+    box-shadow: 0 5px 18px rgba(107, 155, 75, 0.5);
+}
+
+/* ============================================
+   ФОРМЫ
+   ============================================ */
+
+.forest-input,
+.forest-select,
+.forest-textarea {
+    background: rgba(46, 90, 59, 0.2);
+    border: 2px solid rgba(107, 155, 75, 0.3);
+    color: var(--forest-cream);
+    padding: 12px 16px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.forest-input:focus,
+.forest-select:focus,
+.forest-textarea:focus {
+    background: rgba(75, 139, 59, 0.25);
+    border-color: var(--forest-light);
+    box-shadow: 0 0 20px rgba(107, 155, 75, 0.4),
+                inset 0 0 10px rgba(107, 155, 75, 0.1);
+    outline: none;
+    color: var(--forest-cream);
+}
+
+.forest-input::placeholder,
+.forest-textarea::placeholder {
+    color: rgba(245, 232, 208, 0.5);
+}
+
+.forest-check {
+    accent-color: var(--forest-light);
+    border-color: var(--forest-light);
+}
+
+.forest-check:checked {
+    background-color: var(--forest-light);
+    border-color: var(--forest-light);
+}
+
+.forest-range {
+    accent-color: var(--forest-light);
+}
+
+/* ============================================
+   TIMELINE
+   ============================================ */
+
+.timeline-item {
+    transition: all 0.3s ease;
+    position: relative;
+    padding-left: 10px;
+    border-left: 3px solid var(--forest-light);
+}
+
+.timeline-item:hover {
+    transform: translateX(10px);
+    border-left-color: var(--forest-moss);
+}
+
+.timeline-item::before {
+    content: '🌱';
+    position: absolute;
+    left: -15px;
+    top: 0;
+    font-size: 1.5rem;
+    animation: sprout 2s ease-in-out infinite;
+}
+
+@keyframes sprout {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.timeline-badge {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.timeline-badge.completed {
+    background: linear-gradient(135deg, var(--forest-medium), var(--forest-deep));
+    animation: badge-pulse 2s ease-in-out infinite;
+}
+
+.timeline-badge.in-progress {
+    background: linear-gradient(135deg, var(--forest-moss), var(--forest-light));
+    animation: badge-rotate 3s ease-in-out infinite;
+}
+
+.timeline-badge.planned {
+    background: linear-gradient(135deg, var(--forest-brown), var(--forest-bark));
+}
+
+@keyframes badge-pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(75, 139, 59, 0.5);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px rgba(75, 139, 59, 0.8);
+    }
+}
+
+@keyframes badge-rotate {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+}
+
+/* ============================================
+   МОДАЛЬНЫЕ ОКНА
+   ============================================ */
+
+.modal-content {
+    background: rgba(46, 90, 59, 0.95) !important;
+    backdrop-filter: blur(35px) saturate(180%);
+    border: 2px solid rgba(107, 155, 75, 0.4) !important;
+    box-shadow: 0 0 70px rgba(107, 155, 75, 0.5),
+                inset 0 1px 0 rgba(245, 232, 208, 0.15);
+    border-radius: 24px;
+    animation: modal-slide-in 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes modal-slide-in {
+    0% {
+        opacity: 0;
+        transform: scale(0.9) translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.forest-border {
+    border-color: rgba(245, 232, 208, 0.2) !important;
+}
+
+.btn-close-white {
+    filter: brightness(0) invert(1);
+}
+
+/* ============================================
+   ФУТЕР
+   ============================================ */
+
+.forest-footer {
+    background: rgba(46, 90, 59, 0.3) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    border-top: 2px solid rgba(107, 155, 75, 0.5);
+    border-radius: 24px 24px 0 0;
+    position: relative;
+    z-index: 100;
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom)) !important;
+}
+
+/* ============================================
+   КУРСОР
+   ============================================ */
+
+.forest-cursor {
+    position: fixed;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+                rgba(107, 155, 75, 0.4) 0%,
+                rgba(75, 139, 59, 0.2) 40%,
+                transparent 70%);
+    box-shadow: 0 0 30px 15px rgba(107, 155, 75, 0.3);
+    opacity: 1;
+    transition: opacity 0.3s ease, transform 0.2s ease;
+    z-index: 9998;
+    mix-blend-mode: screen;
+    animation: cursor-pulse 2s ease-in-out infinite;
+}
+
+@keyframes cursor-pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   ДОПОЛНИТЕЛЬНЫЕ ЭФФЕКТЫ
+   ============================================ */
+
+/* Эффект росы на стекле */
+.dew-effect {
+    position: relative;
+}
+
+.dew-effect::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle, rgba(202, 240, 248, 0.6), transparent);
+    border-radius: 50%;
+    animation: dew-drip 4s ease-in-out infinite;
+}
+
+@keyframes dew-drip {
+    0%, 100% {
+        transform: translateY(0);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translateY(10px);
+        opacity: 0.3;
+    }
+}
+
+/* Эффект мерцания звезд (для светлячков) */
+.sparkle {
+    animation: sparkle 1.5s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+
+.glass-container {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+}
+
+main {
+    padding-inline: clamp(0.75rem, 0.5rem + 1vw, 2rem);
+}
+
+.container-fluid {
+    padding-inline: clamp(1rem, calc(0.5rem + 1vw), 2rem);
+}
+
+/* Мобильные стили */
+@media (max-width: 767px) {
+    .leaf {
+        width: 15px;
+        height: 15px;
+    }
+    
+    .forest-btn,
+    .forest-outline-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .forest-cursor {
+        display: none !important;
+    }
+    
+    .project-card:hover {
+        transform: translateY(-5px);
+    }
+}
+
+/* Планшеты */
+@media (min-width: 768px) and (max-width: 991px) {
+    .leaf {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* Большие экраны */
+@media (min-width: 1200px) {
+    .container-fluid {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+}
+
+/* Уменьшение движения */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .forest-cursor,
+    .floating-particles {
+        display: none !important;
+    }
+}
+
+/* Печать */
+@media print {
+    .forest-background,
+    .forest-cursor,
+    .floating-particles {
+        display: none !important;
+    }
+    
+    .forest-glass {
+        background: #fff !important;
+        border: 1px solid #000 !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+    }
+}
+
+/* Сенсорные устройства */
+@media (hover: none) and (pointer: coarse) {
+    .project-card:hover,
+    .forest-btn:hover,
+    .forest-outline-btn:hover {
+        transform: none;
+    }
+    
+    .forest-link:hover::before {
+        width: 0;
+    }
+}

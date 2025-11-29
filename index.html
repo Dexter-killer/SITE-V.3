@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Портфолио - Говорунов Данила | Лесная тема</title>
+    
+    <!-- Предзагрузка критических ресурсов -->
+    <link rel="preload" href="style/forest-theme.css" as="style">
+    <link rel="preload" href="js/forest-engine.js" as="script">
+    <link rel="preload" href="fonts/techno.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <!-- Оптимизация загрузки шрифтов -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" media="print" onload="this.media='all'">
+    
+    <!-- Основные стили -->
+    <link rel="stylesheet" href="style/forest-theme.css">
+    <link rel="stylesheet" href="style/animations.css">
+    
+    <!-- Иконка сайта -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    
+    <!-- Мета-теги для SEO и соцсетей -->
+    <meta name="description" content="Портфолио Говорунова Данилы Дмитриевича - современный веб-разработчик с лесной тематикой и природными эффектами">
+    <meta name="keywords" content="веб-разработка, портфолио, JavaScript, React, лесная тема">
+    <meta property="og:title" content="Портфолио - Говорунов Данила">
+    <meta property="og:description" content="Современное портфолио с лесной тематикой и природными эффектами">
+    <meta property="og:type" content="website">
+    
+    <style>
+        :root {
+            --forest-deep: #2E5A3B;
+            --forest-medium: #4B8B3B;
+            --forest-light: #6B9B4B;
+            --forest-moss: #8B9F6D;
+            --forest-brown: #5B3A29;
+            --forest-bark: #7A5C47;
+            --forest-cream: #F5E8D0;
+            --forest-fog: rgba(245, 232, 208, 0.1);
+        }
+        
+        body.forest-theme {
+            background: linear-gradient(135deg, #1a3a2a 0%, #2d4a3d 50%, #3d5a4d 100%);
+            color: var(--forest-cream);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Лесной фон с анимацией */
+        .forest-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .leaves-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .leaf {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--forest-light);
+            border-radius: 0 50% 50% 50%;
+            opacity: 0.6;
+            animation: fall 15s infinite;
+        }
+        
+        .leaf:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .leaf:nth-child(2) { left: 20%; animation-delay: 2s; }
+        .leaf:nth-child(3) { left: 30%; animation-delay: 4s; }
+        .leaf:nth-child(4) { left: 40%; animation-delay: 6s; }
+        .leaf:nth-child(5) { left: 50%; animation-delay: 8s; }
+        .leaf:nth-child(6) { left: 60%; animation-delay: 10s; }
+        .leaf:nth-child(7) { left: 70%; animation-delay: 12s; }
+        .leaf:nth-child(8) { left: 80%; animation-delay: 14s; }
+        
+        @keyframes fall {
+            0% {
+                top: -10%;
+                transform: rotate(0deg);
+            }
+            100% {
+                top: 110%;
+                transform: rotate(360deg);
+            }
+        }
+        
+        .fireflies-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .firefly {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #FFE55C;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #FFE55C;
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        /* Стеклянный эффект с лесным оттенком */
+        .glass-container {
+            background: rgba(46, 90, 59, 0.1);
+            backdrop-filter: blur(10px);
+            min-height: 100vh;
+        }
+        
+        .forest-glass {
+            background: rgba(75, 139, 59, 0.15);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(245, 232, 208, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Заголовки и текст */
+        .text-glow {
+            color: var(--forest-cream);
+            text-shadow: 0 0 20px rgba(139, 159, 109, 0.6);
+        }
+        
+        .forest-gradient {
+            background: linear-gradient(135deg, var(--forest-light), var(--forest-moss));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .forest-text {
+            color: var(--forest-cream);
+        }
+        
+        /* Навигация */
+        .forest-navbar {
+            background: rgba(46, 90, 59, 0.3);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(245, 232, 208, 0.2);
+        }
+        
+        .forest-link {
+            color: var(--forest-cream) !important;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .forest-link:hover {
+            color: var(--forest-moss) !important;
+            transform: translateY(-2px);
+        }
+        
+        .forest-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--forest-light);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .forest-link:hover::after {
+            width: 80%;
+        }
+        
+        /* Иконки */
+        .forest-icon {
+            color: var(--forest-light);
+            filter: drop-shadow(0 0 8px rgba(107, 155, 75, 0.5));
+        }
+        
+        /* Кнопки */
+        .forest-btn {
+            background: linear-gradient(135deg, var(--forest-medium), var(--forest-deep));
+            border: none;
+            color: var(--forest-cream);
+            padding: 12px 30px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(75, 139, 59, 0.4);
+        }
+        
+        .forest-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(75, 139, 59, 0.6);
+            background: linear-gradient(135deg, var(--forest-light), var(--forest-medium));
+            color: var(--forest-cream);
+        }
+        
+        .forest-outline-btn {
+            background: transparent;
+            border: 2px solid var(--forest-light);
+            color: var(--forest-cream);
+            padding: 10px 28px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .forest-outline-btn:hover {
+            background: var(--forest-light);
+            color: var(--forest-deep);
+            transform: translateY(-3px);
+        }
+        
+        /* Фото профиля */
+        .profile-forest-container {
+            position: relative;
+        }
+        
+        .forest-frame {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin: 0 auto;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(135deg, var(--forest-light), var(--forest-moss), var(--forest-brown));
+            box-shadow: 0 0 30px rgba(107, 155, 75, 0.6);
+            animation: forestPulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes forestPulse {
+            0%, 100% { box-shadow: 0 0 30px rgba(107, 155, 75, 0.6); }
+            50% { box-shadow: 0 0 50px rgba(139, 159, 109, 0.8); }
+        }
+        
+        .forest-photo {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--forest-cream);
+        }
+        
+        /* Прогресс-бары */
+        .forest-progress {
+            background: rgba(46, 90, 59, 0.3);
+            height: 12px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .forest-progress-bar {
+            background: linear-gradient(90deg, var(--forest-medium), var(--forest-light), var(--forest-moss));
+            height: 100%;
+            border-radius: 20px;
+            transition: width 1.5s ease;
+            box-shadow: 0 0 15px rgba(107, 155, 75, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .forest-progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shine 2s infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        /* Карточки проектов */
+        .project-card {
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(75, 139, 59, 0.5);
+        }
+        
+        .forest-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(46, 90, 59, 0.8), rgba(75, 139, 59, 0.6));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .project-card:hover .forest-overlay {
+            opacity: 1;
+        }
+        
+        /* Бейджи */
+        .forest-badge {
+            background: linear-gradient(135deg, var(--forest-medium), var(--forest-deep));
+            color: var(--forest-cream);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 4px;
+            box-shadow: 0 2px 8px rgba(75, 139, 59, 0.4);
+        }
+        
+        .woodland-badge {
+            background: linear-gradient(135deg, var(--forest-brown), var(--forest-bark));
+            color: var(--forest-cream);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 4px;
+            box-shadow: 0 2px 8px rgba(91, 58, 41, 0.4);
+        }
+        
+        /* Списки */
+        .forest-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .forest-list li::before {
+            content: '🌿';
+            margin-right: 10px;
+        }
+        
+        /* Статистика */
+        .stats-icon {
+            font-size: 3rem;
+            color: var(--forest-light);
+            filter: drop-shadow(0 0 15px rgba(107, 155, 75, 0.6));
+        }
+        
+        /* Футер */
+        .forest-footer {
+            background: rgba(46, 90, 59, 0.3);
+            backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(245, 232, 208, 0.2);
+            margin-top: 3rem;
+        }
+        
+        /* Курсор */
+        .forest-cursor {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(107, 155, 75, 0.4), transparent);
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.2s ease;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .forest-frame {
+                width: 220px;
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body class="forest-theme">
+    <!-- Анимированный лесной фон -->
+    <div class="forest-background">
+        <div class="leaves-container">
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+        </div>
+        <div class="fireflies-container" id="firefliesContainer"></div>
+    </div>
+
+    <!-- Свечение за курсором -->
+    <div id="cursorGlow" class="forest-cursor"></div>
+
+    <!-- Основной контейнер с стеклянным эффектом -->
+    <div class="glass-container">
+        <header class="py-3">
+            <div class="container-fluid">
+                <div class="d-flex align-items-center justify-content-center">
+                    <div class="me-3">
+                        <i class="bi bi-tree-fill text-glow" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <h1 class="h3 mb-0 text-glow">Говорунов Данила Дмитриевич</h1>
+                </div>
+            </div>
+        </header>
+
+        <!-- Навигация -->
+        <nav class="navbar navbar-expand-lg forest-navbar" aria-label="Основная навигация">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-bold text-glow" href="index.html">
+                    <i class="bi bi-tree me-2"></i>Portfolio
+                </a>
+                <button class="navbar-toggler" 
+                        type="button" 
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#navbarNav"
+                        aria-label="Переключить навигацию"
+                        style="border-color: var(--forest-cream);">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active forest-link" href="index.html">
+                                <i class="bi bi-house-door me-1"></i>Главная
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link forest-link" href="pages/projects.html">
+                                <i class="bi bi-folder me-1"></i>Проекты
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link forest-link" href="pages/diary.html">
+                                <i class="bi bi-journal-text me-1"></i>Дневник
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link forest-link" href="pages/contacts.html">
+                                <i class="bi bi-telephone me-1"></i>Контакты
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Основное содержимое -->
+        <main id="main" class="container-fluid my-5">
+            <!-- Hero Section -->
+            <section class="row g-4 mb-5 align-items-center">
+                <div class="col-lg-4 text-center">
+                    <div class="profile-forest-container">
+                        <div class="forest-frame">
+                            <picture>
+                                <source type="image/webp" srcset="images/photo.webp">
+                                <img src="images/photo.jpg" 
+                                     alt="Фото студента Говорунова Данилы Дмитриевича" 
+                                     class="forest-photo" 
+                                     width="280" 
+                                     height="280"
+                                     fetchpriority="high"
+                                     loading="eager"
+                                     onerror="this.src='https://via.placeholder.com/280/4B8B3B/F5E8D0?text=Фото'">
+                            </picture>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card forest-glass">
+                        <div class="card-body p-4">
+                            <h1 class="display-5 text-glow mb-3">
+                                <i class="bi bi-person-badge me-2 forest-icon"></i>Привет! Я студент
+                            </h1>
+                            <h2 class="h4 forest-gradient mb-3">группы ЭФБО-12-24</h2>
+                            <p class="text-light lead mb-3 forest-text">
+                                Увлекаюсь веб-разработкой и создаю современные адаптивные веб-приложения. 
+                                Специализируюсь на HTML, CSS, JavaScript, React и других современных технологиях.
+                            </p>
+                            <p class="text-light mb-4 forest-text">
+                                <i class="bi bi-mortarboard-fill forest-icon me-2"></i>
+                                Обучаюсь в МИРЭА - Российском технологическом университете на факультете информационных технологий. 
+                                Активно участвую в хакатонах, изучаю новые фреймворки и постоянно совершенствую свои навыки программирования.
+                            </p>
+                            <div class="d-flex gap-3 flex-wrap">
+                                <a href="files/resume.txt" download class="btn forest-btn btn-lg">
+                                    <i class="bi bi-download me-2"></i>Скачать резюме
+                                </a>
+                                <a href="pages/contacts.html" class="btn forest-outline-btn btn-lg">
+                                    <i class="bi bi-envelope me-2"></i>Связаться
+                                </a>
+                                <a href="pages/projects.html" class="btn forest-outline-btn btn-lg">
+                                    <i class="bi bi-folder me-2"></i>Мои работы
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Обо мне -->
+            <section class="mb-5">
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="card forest-glass h-100">
+                            <div class="card-body">
+                                <h3 class="text-glow mb-3">
+                                    <i class="bi bi-lightbulb me-2 forest-icon"></i>Интересы и увлечения
+                                </h3>
+                                <ul class="forest-list">
+                                    <li class="mb-2 forest-text">Разработка веб-приложений с нуля</li>
+                                    <li class="mb-2 forest-text">UI/UX дизайн и прототипирование</li>
+                                    <li class="mb-2 forest-text">Изучение алгоритмов и структур данных</li>
+                                    <li class="mb-2 forest-text">Участие в open-source проектах</li>
+                                    <li class="mb-2 forest-text">Хакатоны и соревнования по программированию</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card forest-glass h-100">
+                            <div class="card-body">
+                                <h3 class="text-glow mb-3">
+                                    <i class="bi bi-award me-2 forest-icon"></i>Достижения
+                                </h3>
+                                <div>
+                                    <div class="mb-3">
+                                        <h5 class="forest-gradient mb-1">
+                                            <i class="bi bi-star-fill me-2"></i>Успешно завершил 6+ проектов
+                                        </h5>
+                                        <p class="forest-text mb-0 small">Включая личные сайты, веб-приложения и интернет-магазины</p>
+                                    </div>
+                                    <div class="mb-3">
+                                        <h5 class="forest-gradient mb-1">
+                                            <i class="bi bi-people-fill me-2"></i>Работа в команде
+                                        </h5>
+                                        <p class="forest-text mb-0 small">Опыт коллективной разработки с использованием Git и Agile методологий</p>
+                                    </div>
+                                    <div>
+                                        <h5 class="forest-gradient mb-1">
+                                            <i class="bi bi-book me-2"></i>Непрерывное обучение
+                                        </h5>
+                                        <p class="forest-text mb-0 small">Постоянно изучаю новые технологии и фреймворки</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Навыки -->
+            <section class="mb-5">
+                <h2 class="text-center text-glow mb-4">
+                    <i class="bi bi-gear-fill me-2 forest-icon"></i>Мои навыки и технологии
+                </h2>
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="card forest-glass h-100">
+                            <div class="card-body">
+                                <h4 class="forest-gradient mb-4">
+                                    <i class="bi bi-laptop me-2 forest-icon"></i>Frontend разработка
+                                </h4>
+                                
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-glow fw-bold">
+                                            <i class="bi bi-filetype-html forest-icon me-2"></i>HTML/CSS
+                                        </span>
+                                        <span class="forest-gradient fw-bold">90%</span>
+                                    </div>
+                                    <div class="forest-progress">
+                                        <div class="forest-progress-bar" data-width="90"></div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-glow fw-bold">
+                                            <i class="bi bi-filetype-js forest-icon me-2"></i>JavaScript
+                                        </span>
+                                        <span class="forest-gradient fw-bold">80%</span>
+                                    </div>
+                                    <div class="forest-progress">
+                                        <div class="forest-progress-bar" data-width="80"></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-glow fw-bold">
+                                            <i class="bi bi-bootstrap forest-icon me-2"></i>Bootstrap
+                                        </span>
+                                        <span class="forest-gradient fw-bold">85%</span>
+                                    </div>
+                                    <div class="forest-progress">
+                                        <div class="forest-progress-bar" data-width="85"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card forest-glass h-100">
+                            <div class="card-body">
+                                <h4 class="forest-gradient mb-4">
+                                    <i class="bi bi-code-slash me-2 forest-icon"></i>Программирование
+                                </h4>
+                                
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-glow fw-bold">
+                                            <i class="bi bi-react forest-icon me-2"></i>React
+                                        </span>
+                                        <span class="forest-gradient fw-bold">60%</span>
+                                    </div>
+                                    <div class="forest-progress">
+                                        <div class="forest-progress-bar" data-width="60"></div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-glow fw-bold">
+                                            <i class="bi bi-git forest-icon me-2"></i>Git/GitHub
+                                        </span>
+                                        <span class="forest-gradient fw-bold">75%</span>
+                                    </div>
+                                    <div class="forest-progress">
+                                        <div class="forest-progress-bar" data-width="75"></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-glow fw-bold">
+                                            <i class="bi bi-file-code forest-icon me-2"></i>C++/C#
+                                        </span>
+                                        <span class="forest-gradient fw-bold">70%</span>
+                                    </div>
+                                    <div class="forest-progress">
+                                        <div class="forest-progress-bar" data-width="70"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Проекты -->
+            <section class="mb-5">
+                <h2 class="text-center text-glow mb-4">
+                    <i class="bi bi-folder-fill me-2 forest-icon"></i>Лучшие проекты
+                </h2>
+                <p class="text-center forest-text mb-4">
+                    Здесь представлены мои лучшие работы в области веб-разработки с уникальными природными эффектами.
+                </p>
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6">
+                        <a href="pages/projects.html#project1" class="text-decoration-none">
+                            <article class="card forest-glass project-card h-100">
+                                <div class="position-relative">
+                                    <picture>
+                                        <source type="image/webp" srcset="images/project1.webp">
+                                        <img src="images/project1.jpg" 
+                                             class="card-img-top" 
+                                             alt="Личный сайт - адаптивное портфолио" 
+                                             width="400"
+                                             height="220"
+                                             loading="lazy"
+                                             onerror="this.src='https://via.placeholder.com/400x220/4B8B3B/F5E8D0?text=Проект+1'">
+                                    </picture>
+                                    <div class="forest-overlay"></div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="text-center mb-3">
+                                        <i class="bi bi-globe2 forest-icon" style="font-size: 2.5rem;"></i>
+                                    </div>
+                                    <h3 class="h5 text-glow text-center mb-2">Личный сайт</h3>
+                                    <p class="forest-text small text-center mb-3">Адаптивный сайт-портфолио с современным дизайном</p>
+                                    <div class="text-center">
+                                        <span class="badge forest-badge">HTML5</span>
+                                        <span class="badge woodland-badge">CSS3</span>
+                                        <span class="badge forest-badge">Bootstrap</span>
+                                    </div>
+                                </div>
+                            </article>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <a href="pages/projects.html#project2" class="text-decoration-none">
+                            <article class="card forest-glass project-card h-100">
+                                <div class="position-relative">
+                                    <picture>
+                                        <source type="image/webp" srcset="images/project2.webp">
+                                        <img src="images/project2.jpg" 
+                                             class="card-img-top" 
+                                             alt="Todo-приложение для управления задачами" 
+                                             width="400"
+                                             height="220"
+                                             loading="lazy"
+                                             onerror="this.src='https://via.placeholder.com/400x220/6B9B4B/F5E8D0?text=Проект+2'">
+                                    </picture>
+                                    <div class="forest-overlay"></div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="text-center mb-3">
+                                        <i class="bi bi-list-check forest-icon" style="font-size: 2.5rem;"></i>
+                                    </div>
+                                    <h3 class="h5 text-glow text-center mb-2">Todo-приложение</h3>
+                                    <p class="forest-text small text-center mb-3">Приложение для управления задачами с Local Storage</p>
+                                    <div class="text-center">
+                                        <span class="badge woodland-badge">JavaScript</span>
+                                        <span class="badge forest-badge">Local Storage</span>
+                                    </div>
+                                </div>
+                            </article>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <a href="pages/projects.html#project3" class="text-decoration-none">
+                            <article class="card forest-glass project-card h-100">
+                                <div class="position-relative">
+                                    <picture>
+                                        <source type="image/webp" srcset="images/project3.webp">
+                                        <img src="images/project3.jpg" 
+                                             class="card-img-top" 
+                                             alt="Интернет-магазин на React" 
+                                             width="400"
+                                             height="220"
+                                             loading="lazy"
+                                             onerror="this.src='https://via.placeholder.com/400x220/8B9F6D/F5E8D0?text=Проект+3'">
+                                    </picture>
+                                    <div class="forest-overlay"></div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="text-center mb-3">
+                                        <i class="bi bi-shop forest-icon" style="font-size: 2.5rem;"></i>
+                                    </div>
+                                    <h3 class="h5 text-glow text-center mb-2">Интернет-магазин</h3>
+                                    <p class="forest-text small text-center mb-3">E-commerce платформа на React с корзиной</p>
+                                    <div class="text-center">
+                                        <span class="badge forest-badge">React</span>
+                                        <span class="badge woodland-badge">API</span>
+                                    </div>
+                                </div>
+                            </article>
+                        </a>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <a href="pages/projects.html" class="btn forest-btn btn-lg px-5">
+                        <i class="bi bi-folder2-open me-2"></i>Посмотреть все проекты
+                    </a>
+                </div>
+            </section>
+
+            <!-- Статистика -->
+            <section class="mb-5">
+                <div class="row g-4 text-center">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card forest-glass h-100">
+                            <div class="card-body">
+                                <i class="bi bi-code-square stats-icon"></i>
+                                <h3 class="text-glow mt-3 mb-2 counter" data-target="6">0</h3>
+                                <p class="forest-text mb-0">Завершенных проектов</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card forest-glass h-100">
+                            <div class="card-body">
+                                <i class="bi bi-stack stats-icon"></i>
+                                <h3 class="text-glow mt-3 mb-2 counter" data-target="10">0</h3>
+                                <p class="forest-text mb-0">Изученных технологий</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card forest-glass h-100">
+                            <div class="card-body">
+                                <i class="bi bi-github stats-icon"></i>
+                                <h3 class="text-glow mt-3 mb-2 counter" data-target="50">0</h3>
+                                <p class="forest-text mb-0">Коммитов на GitHub</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card forest-glass h-100">
+                            <div class="card-body">
+                                <i class="bi bi-cup-hot stats-icon"></i>
+                                <h3 class="text-glow mt-3 mb-2">∞</h3>
+                                <p class="forest-text mb-0">Чашек кофе</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Контакты -->
+            <section class="row g-4">
+                <div class="col-12">
+                    <div class="card forest-glass">
+                        <div class="card-body text-center py-5">
+                            <h2 class="text-glow mb-3">
+                                <i class="bi bi-envelope-heart me-2 forest-icon"></i>Готов к сотрудничеству
+                            </h2>
+                            <p class="forest-text mb-4 lead">
+                                Заинтересованы в совместной работе или хотите обсудить проект? 
+                                Свяжитесь со мной любым удобным способом!
+                            </p>
+                            <div class="d-flex justify-content-center gap-3 flex-wrap mb-4">
+                                <a href="mailto:govoronov.d.d@edu.mirea.ru" class="btn forest-outline-btn">
+                                    <i class="bi bi-envelope me-2"></i>Email
+                                </a>
+                                <a href="https://github.com/govoronov" target="_blank" rel="noopener noreferrer" class="btn forest-outline-btn">
+                                    <i class="bi bi-github me-2"></i>GitHub
+                                </a>
+                                <a href="https://t.me/govoronov_dd" target="_blank" rel="noopener noreferrer" class="btn forest-outline-btn">
+                                    <i class="bi bi-telegram me-2"></i>Telegram
+                                </a>
+                            </div>
+                            <p class="forest-text small mb-0">
+                                <i class="bi bi-clock me-2"></i>Обычно отвечаю в течение 24 часов
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="forest-footer text-center py-4">
+            <div class="container-fluid">
+                <p class="mb-2 text-glow">© 2025 Говорунов Данила Дмитриевич | ЭФБО-12-24</p>
+                <p class="small mb-0 forest-text">
+                    <i class="bi bi-tree-fill me-1" style="color: var(--forest-light);"></i>
+                    Сделано с любовью к природе и коду
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Скрипты -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Создание светлячков
+            const firefliesContainer = document.getElementById('firefliesContainer');
+            for (let i = 0; i < 20; i++) {
+                const firefly = document.createElement('div');
+                firefly.className = 'firefly';
+                firefly.style.left = Math.random() * 100 + '%';
+                firefly.style.top = Math.random() * 100 + '%';
+                firefly.style.animationDelay = Math.random() * 2 + 's';
+                firefliesContainer.appendChild(firefly);
+            }
+            
+            // Курсор
+            const cursor = document.getElementById('cursorGlow');
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX - 20 + 'px';
+                cursor.style.top = e.clientY - 20 + 'px';
+            });
+            
+            // Счетчики
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.innerText = Math.ceil(current);
+                        setTimeout(updateCounter, 20);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            updateCounter();
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                });
+                
+                observer.observe(counter);
+            });
+            
+            // Прогресс-бары
+            const progressBars = document.querySelectorAll('.forest-progress-bar');
+            progressBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                bar.style.width = '0%';
+                
+                setTimeout(() => {
+                    bar.style.width = width + '%';
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>
